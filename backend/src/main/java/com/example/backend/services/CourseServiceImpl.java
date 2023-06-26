@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -20,20 +19,10 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.save(course);
     }
 
-    static Course unwrapCourse(Optional<Course> entity, Long id) {
-        if (entity.isPresent()) return entity.get();
-        else throw new CourseNotFoundException(id);
-    }
-
     @Override
     public Course getCourse(Long id) {
         Optional<Course> course = courseRepository.findById(id);
-        if (course.isPresent()) {
-            return course.get();
-        } else {
-            throw new CourseNotFoundException(id);
-        }
-
+        return unwrapCourse(course, id);
     }
 
     @Override
@@ -44,5 +33,10 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void deleteCourse(Long id) {
         courseRepository.deleteById(id);
+    }
+
+    static Course unwrapCourse(Optional<Course> entity, Long id) {
+        if (entity.isPresent()) return entity.get();
+        else throw new CourseNotFoundException(id);
     }
 }
