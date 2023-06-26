@@ -3,10 +3,10 @@ package com.example.backend.services;
 import com.example.backend.entities.Course;
 import com.example.backend.entities.Grade;
 import com.example.backend.entities.Student;
+import com.example.backend.exceptions.GradeNotFoundException;
 import com.example.backend.repositories.CourseRepository;
 import com.example.backend.repositories.GradeRepository;
 import com.example.backend.repositories.StudentRepository;
-import com.ltp.gradesubmission.exception.GradeNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

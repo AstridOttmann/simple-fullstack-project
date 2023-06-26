@@ -1,8 +1,8 @@
 package com.example.backend.services;
 
 import com.example.backend.entities.Course;
+import com.example.backend.exceptions.CourseNotFoundException;
 import com.example.backend.repositories.CourseRepository;
-import com.ltp.gradesubmission.exception.CourseNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class CourseServiceImpl implements CourseService {
 
     static Course unwrapCourse(Optional<Course> entity, Long id) {
         if (entity.isPresent()) return entity.get();
-        else throw new NoSuchElementException();
+        else throw new CourseNotFoundException(id);
     }
 
     @Override

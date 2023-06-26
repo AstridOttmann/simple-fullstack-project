@@ -3,8 +3,8 @@ package com.example.backend.services;
 
 import com.example.backend.entities.Course;
 import com.example.backend.entities.Student;
+import com.example.backend.exceptions.StudentNotFoundException;
 import com.example.backend.repositories.StudentRepository;
-import com.ltp.gradesubmission.exception.StudentNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -48,5 +48,4 @@ public class StudentServiceImpl implements StudentService {
         if (entity.isPresent()) return entity.get();
         else throw new StudentNotFoundException(id);
     }
-
 }
