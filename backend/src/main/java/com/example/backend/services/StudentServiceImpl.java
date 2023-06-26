@@ -4,11 +4,11 @@ package com.example.backend.services;
 import com.example.backend.entities.Course;
 import com.example.backend.entities.Student;
 import com.example.backend.repositories.StudentRepository;
+import com.ltp.gradesubmission.exception.StudentNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -46,7 +46,7 @@ public class StudentServiceImpl implements StudentService {
 
     static Student unwrapStudent(Optional<Student> entity, Long id) {
         if (entity.isPresent()) return entity.get();
-        else throw new NoSuchElementException();
+        else throw new StudentNotFoundException(id);
     }
 
 }

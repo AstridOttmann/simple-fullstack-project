@@ -9,6 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @RequiredArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "course")
 public class Course {
@@ -16,10 +17,13 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "subject", nullable = false)
+    @NonNull
     private String subject;
     @Column(name = "code", nullable = false, unique = true)
+    @NonNull
     private String code;
     @Column(name = "description", nullable = false)
+    @NonNull
     private String description;
     @JsonIgnore
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
