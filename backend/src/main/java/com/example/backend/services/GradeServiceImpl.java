@@ -4,6 +4,7 @@ import com.example.backend.entities.Course;
 import com.example.backend.entities.Grade;
 import com.example.backend.entities.Student;
 import com.example.backend.exceptions.GradeNotFoundException;
+import com.example.backend.exceptions.StudentNotEnrolledException;
 import com.example.backend.repositories.CourseRepository;
 import com.example.backend.repositories.GradeRepository;
 import com.example.backend.repositories.StudentRepository;
@@ -24,6 +25,9 @@ public class GradeServiceImpl implements GradeService {
     public Grade saveGrade(Grade grade, Long studentId, Long courseId) {
         Student student = StudentServiceImpl.unwrapStudent(studentRepository.findById(studentId), studentId);
         Course course = CourseServiceImpl.unwrapCourse(courseRepository.findById(courseId), courseId);
+
+        if(!student.getCourses().contains(course)) throw new StudentNotEnrolledException(studentId, courseId);
+
         grade.setStudent(student);
         grade.setCourse(course);
         return gradeRepository.save(grade);

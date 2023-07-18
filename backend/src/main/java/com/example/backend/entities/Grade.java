@@ -1,5 +1,6 @@
 package com.example.backend.entities;
 
+import com.example.backend.validation.Score;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,7 +8,7 @@ import lombok.*;
 @Setter
 @RequiredArgsConstructor
 @Entity
-@Table(name = "grade", uniqueConstraints={
+@Table(name = "grade", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"student_id", "course_id"})
 })
 public class Grade {
@@ -15,7 +16,7 @@ public class Grade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
+    @Score
     @Column(name = "score", nullable = false)
     private String score;
 
