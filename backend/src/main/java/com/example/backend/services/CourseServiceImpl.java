@@ -1,8 +1,10 @@
 package com.example.backend.services;
 
 import com.example.backend.entities.Course;
-import com.example.backend.exceptions.CourseNotFoundException;
+import com.example.backend.entities.Student;
+import com.example.backend.exceptions.EntityNotFoundException;
 import com.example.backend.repositories.CourseRepository;
+import com.example.backend.repositories.StudentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import java.util.Optional;
 @Service
 public class CourseServiceImpl implements CourseService {
     CourseRepository courseRepository;
+    StudentRepository studentRepository;
 
     @Override
     public Course saveCourse(Course course) {
@@ -31,12 +34,28 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public Course addStudentToCourse(Long studentId, Long courseId) {
+        Course course = getCourse(courseId);
+        Optional<Student> student = studentRepository.findById(studentId);
+        Student unwrappedStudent = StudentServiceImpl.unwrapStudent(student, studentId);
+        course.getStudents().add(unwrappedStudent);
+        return courseRepository.save(course);
+    }
+
+    @Override
+    public List<Student> getEnrolledStudents(Long id) {
+        Course course = getCourse(id);
+        return course.getStudents();
+    }
+
+    @Override
     public void deleteCourse(Long id) {
         courseRepository.deleteById(id);
     }
 
+
     static Course unwrapCourse(Optional<Course> entity, Long id) {
         if (entity.isPresent()) return entity.get();
-        else throw new CourseNotFoundException(id);
+        else throw new EntityNotFoundException(id, Course.class);
     }
 }

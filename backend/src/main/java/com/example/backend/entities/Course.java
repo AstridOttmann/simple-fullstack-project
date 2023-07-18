@@ -29,4 +29,10 @@ public class Course {
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private List<Grade> grades;
 
+    @ManyToMany
+    @JoinTable(name = "course_student",
+            joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"))
+    private List<Student> students;
+
 }

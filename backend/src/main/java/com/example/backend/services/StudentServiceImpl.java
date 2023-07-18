@@ -3,7 +3,7 @@ package com.example.backend.services;
 
 import com.example.backend.entities.Course;
 import com.example.backend.entities.Student;
-import com.example.backend.exceptions.StudentNotFoundException;
+import com.example.backend.exceptions.EntityNotFoundException;
 import com.example.backend.repositories.StudentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -40,12 +40,12 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Course> getEnrolledCourses(Long id) {
-        // TODO Auto-generated method stub
-        return null;
+      Student student = getStudent(id);
+        return student.getCourses();
     }
 
     static Student unwrapStudent(Optional<Student> entity, Long id) {
         if (entity.isPresent()) return entity.get();
-        else throw new StudentNotFoundException(id);
+        else throw new EntityNotFoundException(id, Student.class);
     }
 }
