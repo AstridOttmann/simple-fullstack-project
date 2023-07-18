@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @RestController
@@ -44,7 +45,7 @@ public class CourseController {
     }
 
     @GetMapping("/{id}/students")
-    public ResponseEntity<List<Student>> getEnrolledStudents(@PathVariable Long id) {
+    public ResponseEntity<Set<Student>> getEnrolledStudents(@PathVariable Long id) {
         return new ResponseEntity<>(courseService.getEnrolledStudents(id), HttpStatus.OK);
     }
 }

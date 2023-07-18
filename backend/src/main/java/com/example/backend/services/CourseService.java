@@ -4,6 +4,7 @@ import com.example.backend.entities.Course;
 import com.example.backend.entities.Student;
 
 import java.util.List;
+import java.util.Set;
 
 public interface CourseService {
     Course getCourse(Long id);
@@ -13,5 +14,5 @@ public interface CourseService {
 
     List<Course> getCourses();
     Course addStudentToCourse(Long studentId, Long courseId);
-    List<Student> getEnrolledStudents(Long id);
+    Set<Student> getEnrolledStudents(Long id);
 }

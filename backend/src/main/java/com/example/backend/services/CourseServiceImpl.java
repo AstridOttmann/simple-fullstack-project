@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @AllArgsConstructor
 @Service
@@ -43,7 +44,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Student> getEnrolledStudents(Long id) {
+    public Set<Student> getEnrolledStudents(Long id) {
         Course course = getCourse(id);
         return course.getStudents();
     }
