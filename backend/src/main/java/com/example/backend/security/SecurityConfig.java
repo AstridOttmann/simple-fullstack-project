@@ -1,6 +1,7 @@
 package com.example.backend.security;
 
 import com.example.backend.security.filter.AuthenticationFilter;
+import com.example.backend.security.filter.ExceptionHandlerFilter;
 import com.example.backend.security.manager.CustomAuthenticationManager;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +30,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/user/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                .addFilterBefore(new ExceptionHandlerFilter(), AuthenticationFilter.class)
                 .addFilter(authenticationFilter)
                 .build();
     }
