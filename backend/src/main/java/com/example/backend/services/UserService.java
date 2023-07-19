@@ -4,4 +4,6 @@ import com.example.backend.entities.User;
 
 public interface UserService {
     User saveUser(User user);
+
+    User getUser(String username);
 }
