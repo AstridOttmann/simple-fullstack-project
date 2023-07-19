@@ -1,8 +1,9 @@
 package com.example.backend.entities;
 
 import com.example.backend.validation.Score;
-import jakarta.persistence.*;
 import lombok.*;
+
+import javax.persistence.*;
 
 @Getter
 @Setter
