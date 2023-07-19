@@ -1,5 +1,6 @@
 package com.example.backend.security.filter;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.example.backend.exceptions.EntityNotFoundException;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -15,11 +16,15 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             filterChain.doFilter(request, response);
-        } catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             response.getWriter().write("Username doesn't exist");
             response.getWriter().flush();
-        } catch (RuntimeException e){
+        } catch (JWTVerificationException e) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.getWriter().write("JWT-token not valid");
+            response.getWriter().flush();
+        } catch (RuntimeException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().write("BAD REQUEST");
             response.getWriter().flush();

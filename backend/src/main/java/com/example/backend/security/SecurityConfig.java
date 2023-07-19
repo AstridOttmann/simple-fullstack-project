@@ -2,6 +2,7 @@ package com.example.backend.security;
 
 import com.example.backend.security.filter.AuthenticationFilter;
 import com.example.backend.security.filter.ExceptionHandlerFilter;
+import com.example.backend.security.filter.JWTAuthorizationFilter;
 import com.example.backend.security.manager.CustomAuthenticationManager;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -32,6 +33,7 @@ public class SecurityConfig {
                 .and()
                 .addFilterBefore(new ExceptionHandlerFilter(), AuthenticationFilter.class)
                 .addFilter(authenticationFilter)
+                .addFilterAfter(new JWTAuthorizationFilter(), AuthenticationFilter.class)
                 .build();
     }
 
