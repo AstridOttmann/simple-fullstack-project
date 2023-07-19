@@ -2,8 +2,10 @@ package com.example.backend;
 
 import com.example.backend.entities.Course;
 import com.example.backend.entities.Student;
+import com.example.backend.entities.User;
 import com.example.backend.repositories.CourseRepository;
 import com.example.backend.repositories.StudentRepository;
+import com.example.backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,6 +22,8 @@ public class BackendApplication implements CommandLineRunner {
 
     @Autowired
     CourseRepository courseRepository;
+    @Autowired
+    UserRepository userRepository;
 
 
     public static void main(String[] args) {
@@ -50,5 +54,7 @@ public class BackendApplication implements CommandLineRunner {
             courseRepository.save(courses[i]);
         }
 
+        User user = new User("gila.4.0", "$2a$10$/0XS/c0E4hgPVdSHvAcSZ.2D4KASyO9mhamgwgUeDb9NvMJKnDk4G");
+        userRepository.save(user);
     }
 }
